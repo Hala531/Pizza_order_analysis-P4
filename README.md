@@ -6,51 +6,38 @@
 **database** : Pizza_db    
 **DBMS USED** : PostgreSQL  
 **Number of tables** : 10  
-   * `address`   
-   * `customers`
-   * `ingredient`
-   * `inventory`
-   * `item`
-   * `orders`
-   * `recipe`
-   * `rota`
-   * `shift`
-   * `staff`
+   * `address`,  * `customers,  * `ingredient`, * `inventory`, * `item`, * `orders`, * `recipe`, * `rota,  * `shift,  * `staff`
 
        ![Pizza](https://images.ctfassets.net/j8tkpy1gjhi5/5OvVmigx6VIUsyoKz1EHUs/b8173b7dcfbd6da341ce11bcebfa86ea/Salami-pizza-hero.jpg?w=768&fm=webp&q=80)  
 
-**Situation** : The client, Ben, is opening a new pizzeria.
-It will not offer dine-in service — it will focus solely on takeout and delivery, similar to Domino’s.
-Ben has provided us with a project brief.
-Our first task is to design and build a tailor-made relational database that will allow the business to capture all important operational data.
-This database will later enable Ben to monitor business performance through dashboards, which we will develop in the next stages.
-Our focus is exclusively on the backend development; Ben will hire a separate team to create the frontend ordering system.
-The project brief outlines three main areas that we are required to focus on:  
-`Customer orders`  
-`Stock levels`   
-`Staff`    
+### 🍕 **Situation**
 
-1. **Customer Orders**
+📌 The client, **Ben**, is opening a new **pizzeria**.
 
-Ben has given us list of the different Data he'd like to collect for each order, here it is :    
-Orders Data Required :  
+🚫 It will **not** offer dine-in service — it will focus solely on **takeout** and **delivery**, similar to *Domino’s*.
 
-   * Item name
-   * Item price
-   * Quantity
-   * Customer name
-   * Delivery addres
+📄 Ben has provided us with a **project brief**.
 
-`first_dashboard`    
+💻 Our **first task** is to design and build a **tailor-made relational database** that will capture all important **operational data** for the business.
 
--total_orders  
--total_sales  
--total_items  
--average_order_value  
--sales_by_caegory  
--top_selling_item  
--orders_by_hour  
--sales_by_hour  
+📊 This database will later enable Ben to **monitor business performance** through **dashboards**, which we will develop in the next stages.
+
+🛠️ Our focus is **exclusively on backend development** — Ben will hire a separate team to build the **frontend ordering system**.
+
+---
+
+### 🔍 **Main focus areas** from the project brief:
+
+- 📦 `Customer orders`  
+- 🧾 `Stock levels`  
+- 👨‍🍳 `Staff`
+  
+`first_dashboard`   
+
+looking at the 
+
+
+
 
 ```sql
 SELECT 
@@ -168,6 +155,10 @@ LEFT JOIN inventory inv ON inv.item_id = S2.ing_id
 LEFT JOIN ingredients ing  ON ing.ing_id = S2.ing_id  
 ```
 
+
+![Second Dashboard](https://github.com/Hala531/Pizza_order_analysis-P4/raw/main/Capture%20d%E2%80%99%C3%A9cran%202025-04-29%20222758...png)
+
+
 3. Staff Data Requirements
 
 According to the Brief Ben would like to know two things :  
@@ -206,7 +197,12 @@ CREATE TABLE customers(
 cust_id INT PRIMARY KEY, 
 cust_firstname VARCHAR(50), 
 cust_lastname VARCHAR(50) 
-); 
+);
+
+
+
+
+
 
 --address table 
 DROP TABLE IF EXISTS address; 
