@@ -17,7 +17,7 @@
    * `shift`
    * `staff`
 
-![Pizza](https://images.ctfassets.net/j8tkpy1gjhi5/5OvVmigx6VIUsyoKz1EHUs/b8173b7dcfbd6da341ce11bcebfa86ea/Salami-pizza-hero.jpg?w=768&fm=webp&q=80)  
+       ![Pizza](https://images.ctfassets.net/j8tkpy1gjhi5/5OvVmigx6VIUsyoKz1EHUs/b8173b7dcfbd6da341ce11bcebfa86ea/Salami-pizza-hero.jpg?w=768&fm=webp&q=80)  
 
 **Situation** : The client, Ben, is opening a new pizzeria.
 It will not offer dine-in service — it will focus solely on takeout and delivery, similar to Domino’s.
@@ -34,27 +34,45 @@ The project brief outlines three main areas that we are required to focus on:
 
 Ben has given us list of the different Data he'd like to collect for each order, here it is :    
 Orders Data Required :  
-**- Ben's**
+
    * Item name
    * Item price
    * Quantity
    * Customer name
    * Delivery addres
 
-**Ours**  
-* Row ID
-* Order ID
-* item name
-* item category
-* item size
-* item price
-* quantity
-* Customer first name
-* Customer last name
-* Delivery address1
-* Delivery address2
-* Delivery city
-* Delivery zipcode
+`first_dashboard`    
+
+-total_orders  
+-total_sales  
+-total_items  
+-average_order_value  
+-sales_by_caegory  
+-top_selling_item  
+-orders_by_hour  
+-sales_by_hour  
+
+```sql
+SELECT 
+o.order_id, 
+i.item_price, 
+o.quantity, 
+i.item_cat,
+i.item_name, 
+o.created_at, 
+a.delivery_address1, 
+a.delivery_address2, 
+a.delivery_city, 
+a.delivery_zipcode, 
+o.delivery 
+FROM orders  o
+LEFT JOIN item i ON o.item_id = i.item_id
+LEFT JOIN address a ON o.add_id = a.add_id; 
+```
+
+
+
+
 
 2. Stock control requirements
 
@@ -63,11 +81,99 @@ For the stock control data essentially what ben likes to be able to do is to put
 * their quantity based on the size of the pizza
 * the existing stock level (to keep rhings more simple we'll assume that the lead time for delivery by suppliers is the same for all ingredients.
 
+`second dashboard`  
+
+```sql
+SELECT
+S1.item_name, 
+S1. ing_id, 
+S1.ing_name, 
+S1.ing_weight, 
+S1.ing_price, 
+S1.order_quantity, 
+S1.recipe_quantity, 
+S1.order_quantity*S1.recipe_quantity AS ordered_weight, 
+S1.ing_price/S1.ing_weight AS unit_cost,
+(S1.order_quantity*S1.recipe_quantity)*(S1.ing_price/S1.ing_weight) AS ingredient_cost
+FROM (SELECT 
+o.item_id, 
+i.sku, 
+i.item_name, 
+r.ing_id, 
+ing.ing_name,
+r.quantity AS recipe_quantity,
+ing.ing_weight, 
+ing.ing_price,
+SUM(o.quantity) AS order_quantity 
+FROM orders o 
+LEFT JOIN item i ON o.item_id = i.item_id 
+LEFT JOIN recipe r ON r.recipe_id = i.sku 
+LEFT JOIN ingredients ing ON r.ing_id = ing.ing_id
+GROUP BY 
+o.item_id, i.sku, i.item_name, r.ing_id,ing.ing_name, r.quantity, ing.ing_weight, ing.ing_price) S1 
+--creating a view 
+CREATE VIEW  Stock AS
+SELECT
+    S1.item_name, 
+    S1.ing_id, 
+    S1.ing_name, 
+    S1.ing_weight, 
+    S1.ing_price, 
+    S1.order_quantity, 
+    S1.recipe_quantity, 
+    S1.order_quantity * S1.recipe_quantity AS ordered_weight, 
+    S1.ing_price / S1.ing_weight AS unit_cost,
+    (S1.order_quantity * S1.recipe_quantity) * (S1.ing_price / S1.ing_weight) AS ingredient_cost
+FROM (
+    SELECT 
+        o.item_id, 
+        i.sku, 
+        i.item_name, 
+        r.ing_id, 
+        ing.ing_name,
+        r.quantity AS recipe_quantity,
+        ing.ing_weight, 
+        ing.ing_price,
+        SUM(o.quantity) AS order_quantity 
+    FROM orders o 
+    LEFT JOIN item i ON o.item_id = i.item_id 
+    LEFT JOIN recipe r ON r.recipe_id = i.sku 
+    LEFT JOIN ingredients ing ON r.ing_id = ing.ing_id
+    GROUP BY 
+        o.item_id, i.sku, i.item_name, r.ing_id, ing.ing_name, r.quantity, ing.ing_weight, ing.ing_price
+) S1;
+
+```
+
+```sql
+--Total-weight-ordered
+SELECT
+S2.ing_name, 
+s2.ordered_weight, 
+ing.ing_weight, 
+inv.quantity, 
+ing.ing_weight*inv.quantity AS total_inv_weight,
+(ing.ing_weight*inv.quantity) - S2.ordered_weight AS remaining_weight
+FROM (SELECT
+ing_id, 
+ing_name, 
+sum(ordered_weight) as ordered_weight
+FROM 
+stock 
+GROUP BY ing_name, ing_id) S2 
+LEFT JOIN inventory inv ON inv.item_id = S2.ing_id
+LEFT JOIN ingredients ing  ON ing.ing_id = S2.ing_id  
+```
+
 3. Staff Data Requirements
 
 According to the Brief Ben would like to know two things :  
 * Which staff members are working when
 * Based on the staff salary information, how much each Pizza is actually costing not only in terms of ingredients but also the chef's making the Pizza and the cost of delivery based on the time it took to deliver
+
+`Third dashboard`  
+
+
 
 - table structure for our tables :
 
