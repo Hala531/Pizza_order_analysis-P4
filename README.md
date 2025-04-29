@@ -70,6 +70,9 @@ LEFT JOIN item i ON o.item_id = i.item_id
 LEFT JOIN address a ON o.add_id = a.add_id; 
 ```
 
+![first_dashboard](https://github.com/Hala531/Pizza_order_analysis-P4/raw/main/Capture%20d%E2%80%99%C3%A9cran%202025-04-29%20222602.png)
+
+
 
 
 
