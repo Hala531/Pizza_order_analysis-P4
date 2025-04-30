@@ -1,14 +1,16 @@
 # Pizza_order_analysis-P4  
 ## Project Overview  
-**Project title** : Pizza_order_analysis_P4  
+**Project title** : Pizza_order_analysis  
 **Author** : LABHALLA Halima  
 **Level** : Intermediate   
 **database** : Pizza_db    
 **DBMS USED** : PostgreSQL  
 **Number of tables** : 10  
-   * `address`,  * `customers`,  * `ingredient`, * `inventory`, * `item`, * `orders`, * `recipe`, * `rota`,  * `shift`,  * `staff`
+`address`, `customers`, `ingredient`, `inventory`, `item`, `orders`, `recipe`, `rota`, `shift`, `staff`
 
-       ![Pizza](https://images.ctfassets.net/j8tkpy1gjhi5/5OvVmigx6VIUsyoKz1EHUs/b8173b7dcfbd6da341ce11bcebfa86ea/Salami-pizza-hero.jpg?w=768&fm=webp&q=80)  
+
+
+![Pizza](https://images.squarespace-cdn.com/content/v1/5eb2f5532d212a0e2b3f2102/1600021681609-M3GZ2IG3OQEG9LXKIO6N/Home+Page_Edit.1.jpg?format=2500w)
 
 ### 🍕 **Situation**
 
@@ -282,6 +284,7 @@ LEFT JOIN ingredients ing  ON ing.ing_id = S2.ing_id
 3. Staff Data Requirements
 
 `Third dashboard`  
+
 👨‍💼 **For this third and final dashboard (Staff Dashboard)**, if we look at the client brief, we can see we have just four key points:
 
 - 💵 *Cost per Staff Member*  
@@ -305,6 +308,9 @@ FROM rota r
 LEFT JOIN staff s ON r.staff_id = s.staff_id 
 LEFT JOIN shift sh ON r.shift_id = sh.shift_id;
 ```
+![Third Dashboard](https://github.com/Hala531/Pizza_order_analysis-P4/blob/main/Capture%20d%E2%80%99%C3%A9cran%202025-04-29%20222913.......png)
+
+
 
   
 
