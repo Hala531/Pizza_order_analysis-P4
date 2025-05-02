@@ -12,6 +12,12 @@
 
 ![Pizza](https://images.squarespace-cdn.com/content/v1/5eb2f5532d212a0e2b3f2102/1600021681609-M3GZ2IG3OQEG9LXKIO6N/Home+Page_Edit.1.jpg?format=2500w)
 
+**Introduction**    
+
+Welcome to the Pizza Order Analysis project. This project, developed by LABHALLA Halima at the intermediate level, focuses on designing and analyzing a comprehensive relational database for a fictional pizzeria business. Using PostgreSQL as the DBMS, we built and managed a database named Pizza_db, consisting of 10 well-structured tables to capture all essential aspects of the business — including customers, orders, inventory, ingredients, staff, and shifts.
+The client, Ben, is launching a takeout and delivery-only pizza shop, and our primary responsibility is to support the backend development. This involves building a custom database solution that enables the creation of powerful dashboards for business insights. The project is structured around three key dashboards: Orders, Inventory, and Staff, each addressing specific business performance indicators requested by the client.
+
+
 ### 🍕 **Situation**
 
 📌 The client, **Ben**, is opening a new **pizzeria**.
@@ -308,7 +314,12 @@ FROM rota r
 LEFT JOIN staff s ON r.staff_id = s.staff_id 
 LEFT JOIN shift sh ON r.shift_id = sh.shift_id;
 ```
-![Third Dashboard](https://github.com/Hala531/Pizza_order_analysis-P4/blob/main/Capture%20d%E2%80%99%C3%A9cran%202025-04-29%20222913.......png)
+![Third Dashboard](https://github.com/Hala531/Pizza_order_analysis-P4/blob/main/Capture%20d%E2%80%99%C3%A9cran%202025-04-29%20222913.......png)      
+
+
+**Conclusion**    
+
+This project lays the groundwork for a robust data infrastructure that will allow the client to efficiently monitor and manage pizzeria operations. Through carefully designed database structures and queries, we have prepared the backend to support dynamic dashboards for tracking orders, monitoring stock, and managing staff costs and schedules.
 
 
 
